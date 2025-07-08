@@ -1,0 +1,58 @@
+{
+  "name": "gentleman-mcp-react-example",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "bun@1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@types/node": "^20.10.0",
+    "@types/react": "^18.2.79",
+    "@types/react-dom": "^18.2.23",
+    "grpc-web": "^1.4.2",
+    "google-protobuf": "^3.21.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^5.3.0",
+    "web-vitals": "^3.5.0",
+    "@testing-library/jest-dom": "^6.1.0",
+    "@testing-library/react": "^14.1.0",
+    "@testing-library/user-event": "^14.5.0"
+  },
+  "scripts": {
+    "start": "bun react-scripts start",
+    "build": "bun react-scripts build",
+    "test": "bun react-scripts test",
+    "eject": "bun react-scripts eject",
+    "dev": "bun start",
+    "preview": "bun run build && bun x serve -s build",
+    "lint": "bun x eslint src --ext .ts,.tsx",
+    "type-check": "bun x tsc --noEmit",
+    "clean": "rm -rf build node_modules bun.lockb"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/google-protobuf": "^3.15.12"
+  },
+  "proxy": "http://localhost:8080",
+  "trustedDependencies": [
+    "react-scripts"
+  ]
+}

@@ -1,0 +1,139 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dependency directories (remove the comment below to include it)
+# vendor/
+
+# Go workspace file
+go.work
+go.work.sum
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+/tmp/
+logs/
+
+# Configuration files (keep examples)
+config.yaml
+config.yml
+config.json
+config.toml
+!config.example.*
+
+# Environment variables
+.env
+.env.local
+.env.production
+.env.staging
+
+# TLS Certificates and keys (keep examples and generation scripts)
+certs/*.pem
+certs/*.key
+certs/*.crt
+certs/*.srl
+certs/*.csr
+!certs/.gitkeep
+
+# Build artifacts
+gentleman-mcp
+mcp-client
+*.tar.gz
+*.zip
+
+# Test coverage
+coverage.out
+coverage.html
+
+# Temporary files
+*.tmp
+*.temp
+
+# Protocol buffer generated files (optional - some teams prefer to commit these)
+# *.pb.go
+# *_grpc.pb.go
+
+# Docker
+.dockerignore
+
+# Local development
+.local/
+.cache/
+
+# Backup files
+*.bak
+*.backup
+
+# Database files (for future use)
+*.db
+*.sqlite
+*.sqlite3
+
+# Plugin binaries (future use)
+plugins/*.so
+plugins/*.dll
+
+# Performance profiling
+*.prof
+*.pprof
+
+# Memory dumps
+*.mem
+
+# Core dumps
+core.*
+
+# PID files
+*.pid
+
+# Lock files
+*.lock
+
+# Documentation build
+docs/_build/
+docs/site/
+
+# Helm charts (future use)
+charts/*/charts/
+charts/*/requirements.lock
+
+# Terraform (future infrastructure)
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Kubernetes secrets
+*-secret.yaml
+*-secrets.yaml
+
+# Local testing
+test-data/
+test-results/

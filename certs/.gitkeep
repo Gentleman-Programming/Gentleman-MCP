@@ -1,0 +1,5 @@
+# This file ensures the certs/ directory is tracked by Git
+# TLS certificates will be generated here by running: make certs
+#
+# Generated files (*.pem, *.key, etc.) are ignored by .gitignore
+# but this directory structure is preserved for the build process.

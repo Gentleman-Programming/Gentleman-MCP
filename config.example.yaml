@@ -1,0 +1,227 @@
+# Gentleman MCP Gateway - Example Configuration
+# Copy this to config.yaml and customize for your environment
+
+# Server Configuration
+server:
+  # Network settings
+  host: "0.0.0.0"
+  port: 50051
+
+  # TLS Configuration
+  tls:
+    enabled: true
+    cert_file: "certs/server-cert.pem"
+    key_file: "certs/server-key.pem"
+    ca_cert_file: "certs/ca-cert.pem"
+
+    # Mutual TLS (optional)
+    mtls:
+      enabled: false
+      require_client_cert: false
+
+    # TLS version (1.3 recommended)
+    min_version: "1.3"
+
+  # Development mode (disables TLS)
+  insecure: false
+
+  # Graceful shutdown timeout
+  shutdown_timeout: "30s"
+
+# Ollama Integration
+ollama:
+  # Base URL for Ollama API
+  base_url: "http://localhost:11434"
+
+  # Request timeout
+  timeout: "30s"
+
+  # Default model
+  default_model: "gemma3:4b"
+
+  # Retry configuration
+  retry:
+    max_attempts: 3
+    backoff: "1s"
+
+  # Health check
+  health_check:
+    enabled: true
+    interval: "60s"
+
+# Authentication & Session Management
+auth:
+  # JWT configuration
+  jwt:
+    # Session expiration time
+    expiration: "5m"
+
+    # Secret key for JWT signing (use strong random key in production)
+    secret_key: "your-super-secret-jwt-key-change-this-in-production"
+
+    # JWT algorithm
+    algorithm: "HS256"
+
+  # Session management
+  sessions:
+    # Cleanup interval for expired sessions
+    cleanup_interval: "1m"
+
+    # Maximum concurrent sessions per tenant
+    max_per_tenant: 100
+
+# Multi-tenant configuration
+tenants:
+  # Default tenant settings
+  default:
+    # Rate limiting
+    rate_limit:
+      requests_per_minute: 60
+      burst: 10
+
+    # Quotas
+    quotas:
+      max_sessions: 10
+      max_requests_per_day: 1000
+
+    # Model access
+    allowed_models:
+      - "gemma3:4b"
+      - "gemma3:8b"
+      - "gemma3:27b"
+
+# Observability
+observability:
+  # Logging
+  logging:
+    level: "info"  # debug, info, warn, error
+    format: "json"  # json, text
+    output: "stdout"  # stdout, stderr, file path
+
+  # Metrics
+  metrics:
+    enabled: true
+    port: 9090
+    path: "/metrics"
+
+  # Tracing (OpenTelemetry)
+  tracing:
+    enabled: false
+    endpoint: "http://localhost:14268/api/traces"
+    service_name: "gentleman-mcp-gateway"
+    sample_rate: 1.0
+
+# Plugin System (Future)
+plugins:
+  enabled: false
+  directory: "./plugins"
+
+  # NATS transport plugin
+  nats:
+    enabled: false
+    url: "nats://localhost:4222"
+    subject: "mcp.agents"
+
+# Database (Future - for persistent sessions)
+database:
+  # In-memory (current implementation)
+  type: "memory"
+
+  # PostgreSQL with RLS (future)
+  # type: "postgres"
+  # connection_string: "postgres://user:pass@localhost/gentlemcp?sslmode=require"
+  # max_connections: 25
+  # row_level_security: true
+
+# Security
+security:
+  # CORS (for gRPC-Web)
+  cors:
+    enabled: true
+    allowed_origins:
+      - "http://localhost:3000"
+      - "https://yourdomain.com"
+    allowed_methods:
+      - "GET"
+      - "POST"
+      - "OPTIONS"
+    allowed_headers:
+      - "Content-Type"
+      - "Authorization"
+      - "grpc-timeout"
+
+  # Request validation
+  validation:
+    max_message_size: "4MB"
+    max_session_duration: "24h"
+
+  # Rate limiting (global)
+  rate_limiting:
+    enabled: true
+    requests_per_second: 1000
+    burst: 100
+
+# Development settings
+development:
+  # Enable gRPC reflection
+  reflection: true
+
+  # Enable debug endpoints
+  debug_endpoints: true
+
+  # Hot reload (future)
+  hot_reload: false
+
+  # Mock responses (for testing without Ollama)
+  mock_ollama: false
+
+# Environment-specific overrides
+environments:
+  production:
+    server:
+      insecure: false
+    observability:
+      logging:
+        level: "warn"
+    development:
+      reflection: false
+      debug_endpoints: false
+
+  staging:
+    auth:
+      jwt:
+        expiration: "1h"
+    observability:
+      tracing:
+        enabled: true
+        sample_rate: 0.1
+
+  development:
+    server:
+      insecure: true
+    observability:
+      logging:
+        level: "debug"
+    development:
+      mock_ollama: true
+
+# Feature flags
+features:
+  # Sprint 2: Streaming chat
+  streaming_chat: false
+
+  # Sprint 3: gRPC-Web support
+  grpc_web: false
+
+  # Sprint 4: CLI code generation
+  cli_codegen: false
+
+  # Sprint 5: Multi-tenant UI
+  tenant_ui: false
+
+# Version and build information (auto-populated)
+version:
+  build_version: "v0.1.0"
+  build_time: "2025-01-03T18:30:00Z"
+  git_commit: "abc123def"
+  go_version: "go1.22.0"

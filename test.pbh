@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package gentlemanmcp;
+
+option go_package = "github.com/alanbuscaglia/gentleman-mcp/pb";
+
+enum MustacheKind {
+  MUSTACHE_KIND_UNSPECIFIED = 0;
+  HANDLEBAR = 1;
+  PENCIL = 2;
+  WALRUS = 3;
+}
+
+service GentlemanTest {
+  rpc GetMustache(MustacheType) returns (Mustache) {}
+  rpc ListMustaches(Length) returns (stream Mustache) {}
+  rpc TellMeTheMustaches(stream Length) returns (MustacheSummary) {}
+  rpc GentlemanChat(stream GentlemanMessage) returns (stream GentlemanMessage) {}
+}
+
+message MustacheType {
+  MustacheKind kind = 1;
+}
+
+message Mustache {
+  string name = 1;
+}
+
+message Length {
+  int32 length = 1;
+}
+
+message MustacheSummary {
+  repeated Mustache mustaches = 1;
+}
+
+message GentlemanMessage {
+  string user = 1;
+  string message = 2;
+}

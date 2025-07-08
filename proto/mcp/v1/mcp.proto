@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package mcp.v1;
+
+option go_package = "github.com/Gentleman-Programming/gentleman-mcp/proto/mcp/v1;mcpv1";
+
+import "google/protobuf/timestamp.proto";
+
+// =============================================================================
+// HANDSHAKE SERVICE - Autenticación y configuración
+// =============================================================================
+
+service HandshakeService {
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  rpc Authenticate(AuthRequest) returns (AuthResponse);
+}
+
+message RegisterRequest {
+  string tenant_id = 1;
+  string agent_id = 2;
+  string model = 3;  // "gemma3:4b"
+}
+
+message RegisterResponse {
+  string session_id = 1;
+  string jwt_token = 2;
+  google.protobuf.Timestamp expires_at = 3;
+}
+
+message AuthRequest {
+  string jwt_token = 1;
+}
+
+message AuthResponse {
+  bool valid = 1;
+  string tenant_id = 2;
+  string agent_id = 3;
+}
+
+// =============================================================================
+// AGENT SERVICE - Chat con LLM
+// =============================================================================
+
+service AgentService {
+  rpc Chat(stream ChatMessage) returns (stream ChatMessage);
+  rpc SingleChat(SingleChatRequest) returns (SingleChatResponse);
+}
+
+message ChatMessage {
+  string message_id = 1;
+  string session_id = 2;
+  string content = 3;
+  MessageType type = 4;
+  google.protobuf.Timestamp timestamp = 5;
+}
+
+message SingleChatRequest {
+  string session_id = 1;
+  string content = 2;
+  string model = 3;  // "gemma3:4b"
+}
+
+message SingleChatResponse {
+  string content = 1;
+  google.protobuf.Timestamp timestamp = 2;
+}
+
+enum MessageType {
+  MESSAGE_TYPE_UNSPECIFIED = 0;
+  MESSAGE_TYPE_USER = 1;
+  MESSAGE_TYPE_ASSISTANT = 2;
+  MESSAGE_TYPE_SYSTEM = 3;
+}

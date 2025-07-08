@@ -1,0 +1,65 @@
+# Bun configuration for Gentleman MCP React Example
+
+[install]
+# Use exact versions for reproducible builds
+exact = true
+
+# Auto-install peer dependencies
+auto = true
+
+# Use hardlinks for faster installs
+cache = true
+
+# Registry configuration
+registry = "https://registry.npmjs.org/"
+
+# Lockfile settings
+lockfile = true
+
+[run]
+# Enable hot reloading for development
+hot = true
+
+# Environment variables
+env = "development"
+
+[build]
+# Target modern browsers
+target = "browser"
+
+# Enable source maps for debugging
+sourcemap = true
+
+# Minify in production
+minify = true
+
+# Bundle splitting
+splitting = true
+
+[test]
+# Test framework configuration
+preload = ["./src/setupTests.ts"]
+
+# Coverage settings
+coverage = true
+
+[dev]
+# Development server settings
+port = 3000
+host = "localhost"
+
+# Enable CORS for API calls
+cors = true
+
+# Live reload
+live-reload = true
+
+[package-manager]
+# Bun as package manager
+packageManager = "bun"
+
+# Installation settings
+install-strategy = "hardlink"
+
+# Cache directory
+cache-dir = "~/.bun/cache"
